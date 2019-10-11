@@ -177,10 +177,8 @@
         .innerRadius(0)
         .outerRadius(radius)
 
-
       // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-      svg
-        .selectAll('whatever')
+      svg.selectAll('whatever')
         .data(data_ready)
         .enter()
         .append('path')
@@ -195,8 +193,7 @@
 
 
         // Now add the annotation. Use the centroid method to get the best coordinates
-        svg
-          .selectAll('mySlices')
+        svg.selectAll('mySlices')
           .data(data_ready)
           .enter()
           .append('text')
@@ -205,6 +202,14 @@
           .style("text-anchor", "middle")
           .style("font-size", 17)
 
+
+          svg.append("text")
+                .attr("x", (10))
+                .attr("y", -200)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("text-decoration", "underline")
+                .text("men v.s. women admitted to ucsd in 2018");
 
     </script>
   </body>

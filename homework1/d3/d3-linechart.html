@@ -111,6 +111,15 @@ function d3_xy_chart() {
                 .attr("transform", "translate(0," + innerheight + ")")
                 .call(x_grid) ;
 
+
+            svg.append("text")
+                  .attr("x", (300))
+                  .attr("y", margin)
+                  .attr("text-anchor", "middle")
+                  .style("font-size", "16px")
+                  .style("text-decoration", "underline")
+                  .text("men v.s. women admitted to ucsd from 2005 to 2009");
+
             svg.append("g")
                 .attr("class", "y grid")
                 .call(y_grid) ;
