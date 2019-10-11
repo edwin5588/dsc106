@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title></title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+      </script>
+      <script src = "https://code.highcharts.com/highcharts.js"></script>
+   </head>
+
+   <body>
+      <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+
+      <script>
+          Highcharts.chart('container', {
+      chart: {
+          type: 'bar'
+      },
+      title: {
+          text: ''
+      },
+      xAxis: {
+          categories: [2014, 2015, 2016, 2017, 2018],
+          title: {
+              text: null
+          }
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Population (millions)',
+              align: 'high'
+          },
+          labels: {
+              overflow: 'justify'
+          }
+      },
+      tooltip: {
+          valueSuffix: ' millions'
+      },
+      plotOptions: {
+          bar: {
+              dataLabels: {
+                  enabled: true
+              }
+          }
+      },
+      legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'top',
+          x: -40,
+          y: 80,
+          floating: true,
+          borderWidth: 1,
+          backgroundColor:
+              Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+          shadow: true
+      },
+      credits: {
+          enabled: false
+      },
+      series: [{
+          name: 'Fulltime Men Admitted',
+          data: [11758,12748,14103,13981,13781]
+      }, {
+          name: 'Fulltime Women Admitted',
+          data: [12837,13761,16170,16231,15821]
+      }]
+    });
+      </script>
+
+   </body>
+</html>
