@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="d3_charts.js"></script>
+
+  </head>
+  <body>
+    <svg width = "600", height = "500">
+
+    </svg>
+    <script>
+
+      // bar chart
+      d3.csv("https://gist.githubusercontent.com/dingmei/d1ab5dd8ff9597d71b3fba3dc26347fe/raw/31229a7b96e75fd53281c9ec4a3eb6671b42a179/ucsd_cds_admission_data_2005_to_2018", d3.autoType);
+
+      const sample = [ // data is stored here
+        {
+          "year": 2018,
+          "fulltime_men_applied": 45636,
+          "fulltime_women_applied": 52265,
+          "fulltime_men_admitted": 13781,
+          "fulltime_women_admitted": 15821,
+          "fulltime_men_enrolled": 3220,
+          "fulltime_women_enrolled": 3484
+        },
+        {
+          "year": 2017,
+          "fulltime_men_applied": 41583,
+          "fulltime_women_applied": 46845,
+          "fulltime_men_admitted": 13981,
+          "fulltime_women_admitted": 16231,
+          "fulltime_men_enrolled": 2725,
+          "fulltime_women_enrolled": 2974
+        },
+        {
+          "year": 2016,
+          "fulltime_men_applied": 39779,
+          "fulltime_women_applied": 44430,
+          "fulltime_men_admitted": 14103,
+          "fulltime_women_admitted": 16170,
+          "fulltime_men_enrolled": 2669,
+          "fulltime_women_enrolled": 3077
+        },
+        {
+          "year": 2015,
+          "fulltime_men_applied": 37009,
+          "fulltime_women_applied": 41047,
+          "fulltime_men_admitted": 12748,
+          "fulltime_women_admitted": 13761,
+          "fulltime_men_enrolled": 2711,
+          "fulltime_women_enrolled": 2581
+        },
+        {
+          "year": 2014,
+          "fulltime_men_applied": 34618,
+          "fulltime_women_applied": 38822,
+          "fulltime_men_admitted": 11758,
+          "fulltime_women_admitted": 12837,
+          "fulltime_men_enrolled": 2538,
+          "fulltime_women_enrolled": 2383
+        },
+        {
+          "year": 2013,
+          "fulltime_men_applied": 31992,
+          "fulltime_women_applied": 35408,
+          "fulltime_men_admitted": 11866,
+          "fulltime_women_admitted": 12966,
+          "fulltime_men_enrolled": 2616,
+          "fulltime_women_enrolled": 2612
+        },
+        {
+          "year": 2012,
+          "fulltime_men_applied": 28758,
+          "fulltime_women_applied": 32049,
+          "fulltime_men_admitted": 10917,
+          "fulltime_women_admitted": 12046,
+          "fulltime_men_enrolled": 2328,
+          "fulltime_women_enrolled": 2245
+        },
+        {
+          "year": 2011,
+          "fulltime_men_applied": 25097,
+          "fulltime_women_applied": 28351,
+          "fulltime_men_admitted": 8707,
+          "fulltime_women_admitted": 10269,
+          "fulltime_men_enrolled": 1583,
+          "fulltime_women_enrolled": 1861
+        },
+        {
+          "year": 2010,
+          "fulltime_men_applied": 22332,
+          "fulltime_women_applied": 25761,
+          "fulltime_men_admitted": 8365,
+          "fulltime_women_admitted": 9991,
+          "fulltime_men_enrolled": 1858,
+          "fulltime_women_enrolled": 2089
+        },
+        {
+          "year": 2009,
+          "fulltime_men_applied": 21725,
+          "fulltime_women_applied": 25321,
+          "fulltime_men_admitted": 7816,
+          "fulltime_women_admitted": 9863,
+          "fulltime_men_enrolled": 1695,
+          "fulltime_women_enrolled": 2054
+        },
+        {
+          "year": 2008,
+          "fulltime_men_applied": 21590,
+          "fulltime_women_applied": 25775,
+          "fulltime_men_admitted": 8517,
+          "fulltime_women_admitted": 11200,
+          "fulltime_men_enrolled": 1893,
+          "fulltime_women_enrolled": 2399
+        },
+        {
+          "year": 2007,
+          "fulltime_men_applied": 20566,
+          "fulltime_women_applied": 24507,
+          "fulltime_men_admitted": 8419,
+          "fulltime_women_admitted": 10759,
+          "fulltime_men_enrolled": 1838,
+          "fulltime_women_enrolled": 2303
+        },
+        {
+          "year": 2006,
+          "fulltime_men_applied": 19838,
+          "fulltime_women_applied": 23748,
+          "fulltime_men_admitted": 9210,
+          "fulltime_women_admitted": 12135,
+          "fulltime_men_enrolled": 2031,
+          "fulltime_women_enrolled": 2558
+        },
+        {
+          "year": 2005,
+          "fulltime_men_applied": 18147,
+          "fulltime_women_applied": 22371,
+          "fulltime_men_admitted": 7580,
+          "fulltime_women_admitted": 10311,
+          "fulltime_men_enrolled": 1607,
+          "fulltime_women_enrolled": 2113
+        }
+      ];
+      const margin = 60;
+      const width = 950;
+      const height = 600 - 2 * margin;
+
+      const svg = d3.select('svg');
+
+      const chart = svg.append('g')
+          .attr('transform', `translate(${margin}, ${margin})`);
+
+
+
+      const yScale = d3.scaleLinear()
+          .range([height-70, 0])
+          .domain([0, 16000]);
+
+      chart.append('g')
+          .call(d3.axisLeft(yScale));
+
+      const xScale = d3.scaleBand()
+          .range([0, width])
+          .domain(sample.map((s) => s.year))
+          .padding(0.2)
+
+      chart.append('g')
+          .call(d3.axisBottom(xScale))
+          .attr('transform', 'translate(0, 410)');
+
+      const makeYLines = () => d3.axisLeft()
+          .scale(yScale)
+
+
+      chart.selectAll()
+        .data(sample)
+        .enter()
+        .append('rect')
+        .attr('x', (s) => xScale(s.year))
+        .attr('y', (s) => yScale(s.fulltime_men_admitted))
+        .attr('height', (s) => height-70 - yScale(s.fulltime_men_admitted))
+        .attr('width', xScale.bandwidth())
+
+
+
+
+    </script>
+  </body>
+</html>
